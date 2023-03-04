@@ -117,7 +117,10 @@ class UberEatsDeliveriesSensor(Entity):
                     self._state_attributes['Order Status'] = order['feedCards'][0]['status']['currentProgress']
                     self._state_attributes['Restaurant Name'] = order['activeOrderOverview']['title']
                     self._state_attributes['Courier Name'] = order['contacts'][0]['title']
-                    self._state_attributes['Courier Location'] = str(order['feedCards'][1]['mapEntity'][0]['latitude']) + ',' + str(order['feedCards'][1]['mapEntity'][0]['longitude'])
+                    
+                    if order['feedCards'][1]['mapEntity']:
+                        if order['feedCards'][1]['mapEntity'][0]:
+                            self._state_attributes['Courier Location'] = str(order['feedCards'][1]['mapEntity'][0]['latitude']) + ',' + str(order['feedCards'][1]['mapEntity'][0]['longitude'])
             else:
                 self._state = "None"
         else:
